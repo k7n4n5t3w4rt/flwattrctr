@@ -8,8 +8,6 @@ modules:
     #     - key: resolver
     #       handler: index.handler
 resources:
-    - key: static-files
-      path: static/flwattrctr
     - key: goodthing-files
       path: static/goodthing
 permissions:
