@@ -9,7 +9,7 @@ modules:
     #       handler: index.handler
 resources:
     - key: static-files
-      path: static
+      path: static/flwattrctr
     - key: goodthing-files
       path: goodthing
 permissions:
