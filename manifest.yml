@@ -1,0 +1,25 @@
+modules:
+    jira:projectPage:
+        - key: flwattrctr
+          resource: goodthing-files
+          title: FlowAttractor
+          layout: blank
+    # function:
+    #     - key: resolver
+    #       handler: index.handler
+resources:
+    - key: static-files
+      path: static
+    - key: goodthing-files
+      path: goodthing
+permissions:
+    scopes:
+        - read:jira-user
+        - read:jira-work
+    content:
+        styles:
+            - 'unsafe-inline'
+app:
+    runtime:
+        name: sandbox
+    id: ari:cloud:ecosystem::app/772873c8-ccfd-45de-8261-f7ed353e5009
