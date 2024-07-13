@@ -11,7 +11,7 @@ resources:
     - key: static-files
       path: static/flwattrctr
     - key: goodthing-files
-      path: goodthing
+      path: static/goodthing
 permissions:
     scopes:
         - read:jira-user
