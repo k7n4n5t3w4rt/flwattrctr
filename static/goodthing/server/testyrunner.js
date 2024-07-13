@@ -1,3 +1,4 @@
+// @flow
 import glob from "glob";
 import { exec } from "child_process";
 
@@ -10,11 +11,21 @@ glob("**/*.testy.js", function (e, testies) {
         exec(`node ${testyFilePath}`, (e, stdout, stderr) => {
           if (e) {
             ++counter;
-            resolve([`${e.message}...${stderr}`]);
+            if (typeof stderr === "string") {
+              resolve([`${e.message}...${stderr}`]);
+            } else {
+              resolve([`${e.message}...${stderr.toString()}`]);
+            }
           }
-          let messageString = stdout.trim();
-          if (stderr) {
-            const notOks /*: Array<string> */ = stderr.split(/\r?\n/) || [];
+          let messageString = "";
+          if (typeof stderr === "string") {
+            messageString = stderr.trim();
+          } else {
+            messageString = stderr.toString().trim();
+          }
+          if (messageString !== "") {
+            const notOks /*: Array<string> */ =
+              messageString.split(/\r?\n/) || [];
             const trimmedNotOks = notOks.map(
               (currentElement /*: string */) /*: string */ =>
                 currentElement.trim(),
