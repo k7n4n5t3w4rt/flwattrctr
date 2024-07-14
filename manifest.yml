@@ -2,11 +2,10 @@ modules:
     jira:projectPage:
         - key: flwattrctr
           resource: goodthing-files
-          title: FlowAttractor
+          title: FlowAttractor v0.1.5
           layout: blank
-    # function:
-    #     - key: resolver
-    #       handler: index.handler
+          icon: resource:goodthing-files;project-page-icon.svg
+        #   icon: 'https://app.flowattractor.co/img/project-page-icon.svg'
 resources:
     - key: goodthing-files
       path: static/goodthing
@@ -15,8 +14,19 @@ permissions:
         - read:jira-user
         - read:jira-work
     content:
+        scripts:
+            - 'unsafe-inline'
+            # - 'unsafe-eval' (Doesn't seem to work)
         styles:
             - 'unsafe-inline'
+    external:
+        fonts:
+            - 'fonts.gstatic.com'
+            - 'fonts.googleapis.com'
+        styles:
+            - 'fonts.googleapis.com'
+        scripts:
+            - '*.google-analytics.com'
 app:
     runtime:
         name: sandbox
