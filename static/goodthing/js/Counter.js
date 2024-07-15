@@ -61,41 +61,18 @@ type Props = {
 };
 */
 const Counter = (props /*: Props */) /*: string */ => {
-  const [state, dispatch] /*: [Object, Function] */ = useContext(AppContext);
+  // const [state, dispatch] /*: [Object, Function] */ = useContext(AppContext);
   const [count, setCount] /*: [number, Function] */ = useState(props.count);
 
+  // On every render, set the count to the prop value
   useEffect(() => {
-    console.log("FlwAttrctr: ", props.count);
-    if (typeof state.count !== "undefined") {
-      // setCount(state.count);
-    }
+    setCount(props.count);
   });
 
-  // console.log(props.count.isInteger());
   return html`
     <div className="${styles.container}">
-      <h1 data-cy="heading" className="${styles.heading}">No build step.</h1>
-      <h2 data-cy="subheading" className="${styles.heading}">No script tags</h2>
       <div>
         <h2 data-cy="number-display" className="${styles.counter}">${count}</h2>
-        <button
-          data-cy="minus"
-          className="${styles.buttons}"
-          onClick=${(e /*: SyntheticEvent<HTMLButtonElement> */) => {
-            dispatch({ type: "subtract", payload: count });
-          }}
-        >
-          -
-        </button>
-        <button
-          data-cy="plus"
-          className="${styles.buttons}"
-          onClick=${(e /*: SyntheticEvent<HTMLButtonElement> */) => {
-            dispatch({ type: "add", payload: count });
-          }}
-        >
-          +
-        </button>
       </div>
     </div>
   `;

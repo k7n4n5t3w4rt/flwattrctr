@@ -39,70 +39,20 @@ type Props = {
 };
 */
 const App = (props /*: Props */) /*: string */ => {
-  const [history, setHistory] = useState(null);
-
   useEffect(() => {
-    view.createHistory().then((newHistory) => {
-      setHistory(newHistory);
-    });
-  }, []);
-
-  const [historyState, setHistoryState] = useState(null);
-
-  useEffect(() => {
-    if (!historyState && history) {
-      setHistoryState({
-        action: history.action,
-        location: history.location,
-      });
-    }
-  }, [history, historyState]);
-
-  useEffect(() => {
-    if (history) {
-      history.listen((location, action) => {
-        setHistoryState({
-          action,
-          location,
-        });
-      });
-    }
-  }, [history]);
-  const [currentUrl, setCurrentUrl] = useState("/");
-
-  useEffect(() => {
-    let history;
-    let unlisten;
-
-    const setupHistory = async () => {
-      history = await view.createHistory();
-      unlisten = history.listen((location, action) => {
-        if (action === "PUSH" || action === "REPLACE") {
-          setCurrentUrl(location.pathname);
-          route(location.pathname);
-        }
-      });
-    };
-
-    setupHistory();
-
-    // Cleanup function to stop listening to history changes on component unmount
-    return () => {
-      if (unlisten) unlisten();
-    };
-  }, []);
-
-  const handleRoute = (e /*: any */) => {
-    setCurrentUrl(e.url);
     view.createHistory().then((history) => {
-      history.push(e.url);
+      // The first time the history is set, we need to manually route
+      route(history.location.pathname);
+      // From then on, we can listen to changes in the URL
+      history.listen((location, action) => {
+        route(history.location.pathname);
+      });
     });
-  };
+  }, []);
 
   return html`
     <${AppProvider} >
-      <${Router} onChange="${handleRoute}" url="${currentUrl}">
-        <${Counter} count="1" path="/" />
+      <${Router}>
         <${Counter} count="2" path="/in-progress" />
         <${Counter} count="3" path="/done" />
       </${Router}>
