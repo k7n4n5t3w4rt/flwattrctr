@@ -65,8 +65,9 @@ const Counter = (props /*: Props */) /*: string */ => {
   const [count, setCount] /*: [number, Function] */ = useState(props.count);
 
   useEffect(() => {
+    console.log("FlwAttrctr: ", props.count);
     if (typeof state.count !== "undefined") {
-      setCount(state.count);
+      // setCount(state.count);
     }
   });
 
