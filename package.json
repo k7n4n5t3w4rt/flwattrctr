@@ -1,6 +1,6 @@
 {
     "name": "flwattrctr",
-    "version": "0.1.4",
+    "version": "0.1.x",
     "main": "index.js",
     "repository": {
         "type": "git",

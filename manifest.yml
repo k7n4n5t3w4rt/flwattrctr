@@ -2,7 +2,7 @@ modules:
     jira:projectPage:
         - key: flwattrctr
           resource: goodthing-files
-          title: FlowAttractor v0.1.5
+          title: FlowAttractor v0.1.x
           layout: blank
           icon: resource:goodthing-files;project-page-icon.svg
           # icon: 'https://app.flowattractor.co/img/project-page-icon.svg'
@@ -34,9 +34,17 @@ permissions:
         styles:
             - 'fonts.googleapis.com'
             - '*.cdn.prod.atlassian-dev.net'
+            - '*.cdn.prod.atlassian-dev.net/css/layout.css'
+            - '*.cdn.prod.atlassian-dev.net/css/materialize.css'
+            - '*.cdn.prod.atlassian-dev.net/css/normalize.css'
+            - '*.cdn.prod.atlassian-dev.net/css/main.css'
+            - '*.cdn.prod.atlassian-dev.net/css/spinkit.css'
         scripts:
             - '*.google-analytics.com'
             - '*.cdn.prod.atlassian-dev.net'
+            - '*.cdn.prod.atlassian-dev.net/js/vendor/modernizr-3.8.0.min.js'
+            - '*.cdn.prod.atlassian-dev.net/js/plugins.js'
+            - '*.cdn.prod.atlassian-dev.net/js/main.js'
 app:
     runtime:
         name: sandbox
