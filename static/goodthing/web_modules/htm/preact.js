@@ -1,4 +1,4 @@
-import { c as createCommonjsModule } from '../common/_commonjsHelpers-913f9c4a.js';
+import { c as createCommonjsModule } from '../common/_commonjsHelpers-0597c316.js';
 import { p as preact_module } from '../common/preact.module-c2015350.js';
 import require$$0 from '../htm.js';
 

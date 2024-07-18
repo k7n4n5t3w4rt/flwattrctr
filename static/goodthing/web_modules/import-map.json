@@ -1,6 +1,8 @@
 {
   "imports": {
+    "@forge/api": "./@forge/api.js",
     "@forge/bridge": "./@forge/bridge.js",
+    "@forge/resolver": "./@forge/resolver.js",
     "htm": "./htm.js",
     "htm/preact": "./htm/preact.js",
     "immer": "./immer.js",

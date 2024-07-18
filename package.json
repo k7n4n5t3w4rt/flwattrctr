@@ -1,15 +1,15 @@
 {
     "name": "flwattrctr",
-    "version": "0.1.x",
+    "version": "0.2.x",
     "main": "index.js",
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@bitbucket.org:atlassian/forge-ui-modifications-example.git"
+        "url": "git+ssh://git@github.com:k7n4n5t3w4rt/flwattrctr.git"
     },
     "private": true,
-    "author": "Atlassian",
-    "license": "Apache-2.0",
-    "homepage": "https://bitbucket.org/atlassian/forge-ui-modifications-example/src/master/README.md",
+    "author": "Kynan Stewart Hughes",
+    "license": "None",
+    "homepage": "https://github.com/k7n4n5t3w4rt/flwattrctr/blob/main/README.md",
     "scripts": {
         "format": "npx prettier --write ./static ./src ./README.md",
         "lint": "./node_modules/.bin/eslint src/**/* || npm run --silent hook-errors",
@@ -23,13 +23,18 @@
         "build-deploy": "yarn build && forge deploy"
     },
     "workspaces": [
-        "static",
-        "goodthing"
+        "static"
     ],
     "devDependencies": {
         "eslint": "^8.47.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "flow-bin": "^0.239.1",
+        "prettier": "^3.3.3",
         "process": "^0.11.10"
+    },
+    "dependencies": {
+        "@forge/api": "^3.8.0",
+        "@forge/resolver": "^1.5.36",
+        "tslib": "^2.6.3"
     }
 }

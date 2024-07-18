@@ -10,6 +10,18 @@ declare module "../web_modules/preact.js" {
   declare module.exports: any;
 }
 
+declare module "../../web_modules/@forge/bridge.js" {
+  declare module.exports: any;
+}
+
+declare module "../../web_modules/@forge/resolver.js" {
+  declare module.exports: any;
+}
+
+declare module "../../web_modules/@forge/api.js" {
+  declare module.exports: any;
+}
+
 declare module "../web_modules/@forge/bridge.js" {
   declare module.exports: any;
 }

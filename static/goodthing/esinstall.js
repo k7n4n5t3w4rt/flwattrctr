@@ -14,6 +14,8 @@ install(
     "simplestyle-js",
     "three",
     "@forge/bridge",
+    "@forge/api",
+    "@forge/resolver",
   ],
   {
     polyfillNode: false,

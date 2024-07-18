@@ -2,6 +2,8 @@ modules:
     jira:projectPage:
         - key: flwattrctr
           resource: goodthing-files
+          resolver:
+            function: project-page-resolver
           title: FlowAttractor v0.1.x
           layout: blank
           icon: resource:goodthing-files;project-page-icon.svg
@@ -13,6 +15,9 @@ modules:
             - title: "Done"
               # icon: "https://example.com/icons/history.png"
               route: "done"
+    function:
+        - key: project-page-resolver
+          handler: index.handler
 resources:
     - key: goodthing-files
       path: static/goodthing
@@ -20,6 +25,7 @@ permissions:
     scopes:
         - read:jira-user
         - read:jira-work
+        - storage:app
     content:
         scripts:
             - 'unsafe-inline'
@@ -49,3 +55,25 @@ app:
     runtime:
         name: sandbox
     id: ari:cloud:ecosystem::app/772873c8-ccfd-45de-8261-f7ed353e5009
+    storage:
+        entities:
+          - name: status
+            attributes:
+              statusId: 
+                type: string
+              name: 
+                type: string
+              statusCategory: 
+                type: string
+              used: 
+                type: boolean
+              orderWeight: 
+                type: integer
+            indexes:
+              - statusId
+              - name
+              - name: by-used-and-order
+                partition:
+                  - used
+                range:
+                  - orderWeight

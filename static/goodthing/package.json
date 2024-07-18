@@ -1,13 +1,15 @@
 {
   "name": "goodthing",
   "description": "For making new Preact projects with server-side rendering, es modules and NO compilation during development",
-  "version": "0.1.x",
+  "version": "0.2.x",
   "author": "Kynan Stewart",
   "bugs": {
     "url": "https://github.com/k7n4n5t3w4rt/goodthing/issues"
   },
   "dependencies": {
+    "@forge/api": "^3.8.0",
     "@forge/bridge": "^3.4.0",
+    "@forge/resolver": "^1.5.36",
     "finalhandler": "^1.1.2",
     "history": "^4.10.1",
     "htm": "^3.0.4",
