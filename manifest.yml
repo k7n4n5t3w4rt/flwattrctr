@@ -57,6 +57,25 @@ app:
     id: ari:cloud:ecosystem::app/772873c8-ccfd-45de-8261-f7ed353e5009
     storage:
         entities:
+          - name: status_v2
+            attributes:
+              name: 
+                type: string
+              statusCategory: 
+                type: string
+              used: 
+                type: boolean
+              orderWeight: 
+                type: integer
+            indexes:
+              - name
+              - orderWeight
+              - name: by-used-and-order
+                partition:
+                  - used
+                range:
+                  - orderWeight
+          ######### Old, unused entities #########
           - name: status
             attributes:
               statusId: 
@@ -72,6 +91,7 @@ app:
             indexes:
               - statusId
               - name
+              - orderWeight
               - name: by-used-and-order
                 partition:
                   - used

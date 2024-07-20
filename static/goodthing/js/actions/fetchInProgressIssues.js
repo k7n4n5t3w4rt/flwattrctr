@@ -17,7 +17,10 @@ const fetchInProgressIssues = async (
     const data = await response.json();
 
     // Logging to check the response
-    console.log("FlwAttrctr v0.1.2:", data.issues);
+    console.log(
+      "[Flw] fetchInProgressIssues: In Progress issues:",
+      data.issues,
+    );
 
     // Handle the data, e.g., display it in your UI
     return data.issues;

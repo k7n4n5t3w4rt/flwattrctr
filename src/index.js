@@ -1,24 +1,101 @@
+//@flow
+//---------------------------------------------------------------------
+// FORGE
+//---------------------------------------------------------------------
+// Import necessary Forge API and resolver
 import Resolver from "@forge/resolver";
-import { storage, WhereConditions, SortOrder } from "@forge/api";
+import { storage } from "@forge/api";
 
 const resolver = new Resolver();
 
-resolver.define("exampleFunctionKey", ({ payload, context }) => {
-  payload.statuses.forEach(async (status) => {
-    try {
-      const result = await storage.set(`status:${status.id}`, {
-        statusId: status.id,
-        name: status.name,
-        statusCategory: status.statusCategory.key,
-        used: true, // Assuming all fetched statuses are currently used
-        orderWeight: 0, // This should be set based on your business logic
-      });
-      console.log(`Status saved: ${result}`);
-    } catch (error) {
-      console.error(`Error saving status ${status.id}:`, error);
-    }
-  });
-  return { statuses: payload.statuses };
-});
+/*::
+type StatusPayload = {
+  payload: {
+    statuses: Array<Status>
+  },
+  context: any
+};
 
-export const handler = resolver.getDefinitions();
+type Status = {
+    id: string,
+    name: string,
+    statusCategory: string,
+  used: boolean,
+  orderWeight: number
+};
+
+type QueryPayload = {
+  payload: Object,
+  context: any
+};
+
+type JiraStatus = {
+  id: string,
+  name: string,
+  statusCategory:  {key: string},
+};
+
+type Result = {
+  results: Array<JiraStatus>,
+  nextCursor?: string
+};
+*/
+
+resolver.define(
+  "saveStatusesFunctionKey",
+  async ({ payload } /*: StatusPayload */) /*: Promise<Array<boolean>> */ => {
+    const results = await Promise.all(
+      payload.statuses.map(
+        async (status /*: Status */) /*: Promise<boolean> */ => {
+          try {
+            await storage.entity("status_v2").set(status.id, {
+              name: status.name,
+              statusCategory: status.statusCategory,
+              used: status.used,
+              orderWeight: status.orderWeight,
+            });
+            return true; // Return true if the operation is successful
+          } catch (error) {
+            console.error(`Error saving status ${status.id}:`, error);
+            return false; // Return false if there's an error
+          }
+        },
+      ),
+    );
+
+    return results; // This will be an array of booleans indicating success or failure for each status
+  },
+);
+
+resolver.define(
+  "readStatusesFunctionKey",
+  async (
+    { payload, context } /*: QueryPayload */,
+  ) /*: Promise<Array<JiraStatus>> */ => {
+    // const { used } = payload; // Example payload might include filtering by 'used'
+    // let query = storage.entity("status_v2").query();
+    // // Apply filter if 'usedFilter' is specified
+    // if (used !== undefined) {
+    //   query = query.index("by-used-and-order", {
+    //     partition: [used], // Assume 'used' is boolean true or false
+    //   });
+    // } else {
+    //   // Default to sorting without filter, requires an appropriate index to be defined
+    //   // You might need a separate index just for orderWeight if no filter is used
+    //   query = query.index("statusId");
+    // }
+
+    // // Execute the query and sort by orderWeight
+    // const results /*: Result */ = await query.sort("ASC").getMany();
+
+    const results = await storage
+      .entity("status_v2")
+      .query()
+      .index("name") // Using 'name' assuming it covers all entries straightforwardly.
+      .getMany();
+
+    return results;
+  },
+);
+
+export const handler /*: Function */ = resolver.getDefinitions();

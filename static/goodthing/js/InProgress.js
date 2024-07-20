@@ -32,23 +32,35 @@ import { AppContext } from "./AppContext.js";
 // ACTIONS
 //---------------------------------------------------------------------
 import fetchInProgressIssues from "./actions/fetchInProgressIssues.js";
-import {
-  saveStatusesToStore,
-  fetchWorkflowStatuses,
-  getStatusesUsedSorted,
-} from "./actions/fetchInWorkflowStatuses.js";
+import fetchWorkflowStatuses from "./actions/fetchWorkflowStatuses.js";
+import saveStatusesToStore from "./actions/saveStatusesToStore.js";
+import readStatusesFromStore from "./actions/readStatusesFromStore.js";
 
 /*::
-type ListResult = {
-  results: Array<{ key: string, value: Object }>,
-  nextCursor?: string
+type JiraStatus = {
+  id: string,
+  name: string,
+  statusCategory: {name: string},
 };
 
-type Result = {
-  key: string,
-  value: Object
+type StoredStatus = {
+  name: string,
+  statusCategory: string,
+  used: boolean,
+  orderWeight: number,
 };
 
+type Status = {
+  id: string,
+  name: string,
+  statusCategory: string,
+  used: boolean,
+  orderWeight: number,
+};
+
+type ReturnedData = {
+  results: Array<StoredStatus>
+};
 type Props = {
   count: number | typeof undefined,
 };
@@ -61,10 +73,11 @@ const InProgress = (props /*: Props */) /*: string */ => {
 
   // On the first render, fetch the statuses and issues
   useEffect(async () => {
-    const statuses /*: Array<Object> */ = await fetchWorkflowStatuses();
+    const statuses /*: Array<Status> */ = await fetchWorkflowStatuses();
     await saveStatusesToStore(statuses);
-    // const statusesUsedSorted /*: ListResult */ = await getStatusesUsedSorted();
-    setStatuses(statuses);
+    const statusesFromStore /*: Array<Status> */ =
+      await readStatusesFromStore();
+    setStatuses(statusesFromStore);
     const statusNames /*: Array<string> */ = statuses.map(
       (status) => status.name,
     );
