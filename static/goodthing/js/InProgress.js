@@ -36,51 +36,26 @@ import fetchWorkflowStatuses from "./actions/fetchWorkflowStatuses.js";
 import saveStatusesToStore from "./actions/saveStatusesToStore.js";
 import readStatusesFromStore from "./actions/readStatusesFromStore.js";
 
-/*::
-type JiraStatus = {
-  id: string,
-  name: string,
-  statusCategory: {name: string},
-};
-
-type StoredStatus = {
-  name: string,
-  statusCategory: string,
-  used: boolean,
-  orderWeight: number,
-};
-
-type Status = {
-  id: string,
-  name: string,
-  statusCategory: string,
-  used: boolean,
-  orderWeight: number,
-};
-
-type ReturnedData = {
-  results: Array<StoredStatus>
-};
-type Props = {
-  count: number | typeof undefined,
-};
-*/
-const InProgress = (props /*: Props */) /*: string */ => {
+const InProgress = (props /*: { count: number } */) /*: string */ => {
   // const [state, dispatch] /*: [Object, Function] */ = useContext(AppContext);
   const [statuses, setStatuses] /*: [Array<Object>, Function] */ = useState([]);
+  const [statusNames, setStatusNames] /*: [
+    Array<Object>,
+    Function,
+  ] */ = useState([]);
   const [issues, setIssues] /*: [Array<Object>, Function] */ = useState([]);
   const [context, setContext] /*: [Object, Function] */ = useState({});
 
   // On the first render, fetch the statuses and issues
   useEffect(async () => {
     const statuses /*: Array<Status> */ = await fetchWorkflowStatuses();
+    setStatuses(statuses);
     await saveStatusesToStore(statuses);
-    const statusesFromStore /*: Array<Status> */ =
-      await readStatusesFromStore();
-    setStatuses(statusesFromStore);
+    const statusesFromStore /*: Array<Status> */ = await readStatusesFromStore();
     const statusNames /*: Array<string> */ = statuses.map(
-      (status) => status.name,
+      (status) => status.value.name,
     );
+    setStatusNames(statusNames);
     const issues /*: Array<Object> */ = await fetchInProgressIssues(
       statusNames,
     );
@@ -97,7 +72,7 @@ const InProgress = (props /*: Props */) /*: string */ => {
             <th>Key</th>
             <th>Summary</th>
             <th>Type</th>
-            ${statuses.map((status) => html` <th>${status.name}</th> `)}
+            ${statusNames.map((name) => html` <th>${name}</th> `)}
           </tr>
         </thead>
         <tbody>
@@ -145,15 +120,4 @@ const [styles] = createStyles({
     flexDirection: "column",
     justifyContent: "center",
   },
-  // heading: {
-  //   fontSize: "2em",
-  //   color: "gold",
-  // },
-  // issues: {
-  //   fontSize: "7em",
-  //   color: "silver",
-  // },
-  // buttons: {
-  //   fontSize: "2em",
-  // },
 });

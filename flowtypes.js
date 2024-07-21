@@ -1,3 +1,57 @@
+type JiraStatus = {
+  id: string,
+  name: string,
+  statusCategory: {
+    name: string,
+  },
+};
+type Status = {
+  key: string,
+  value: {
+    name: string,
+    statusCategory: string,
+    used: boolean,
+    orderWeight: number,
+  },
+};
+
+type StoredStatus = {
+  name: string,
+  statusCategory: string,
+  used: boolean,
+  orderWeight: number,
+};
+
+// type ReturnedData = {
+//   results: Array<Result>,
+// };
+
+type StatusPayload = {
+  payload: {
+    statuses: Array<Status>,
+  },
+  context: any,
+};
+
+type QueryPayload = {
+  payload: Object,
+  context: any,
+};
+
+type Results = {
+  results: Array<Result>,
+};
+
+type Result = {
+  key: string,
+  value: {
+    name: string,
+    statusCategory: string,
+    used: boolean,
+    orderWeight: number,
+  },
+};
+
 declare module "finalhandler" {
   declare module.exports: any;
 }

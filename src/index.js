@@ -8,39 +8,6 @@ import { storage } from "@forge/api";
 
 const resolver = new Resolver();
 
-/*::
-type StatusPayload = {
-  payload: {
-    statuses: Array<Status>
-  },
-  context: any
-};
-
-type Status = {
-    id: string,
-    name: string,
-    statusCategory: string,
-  used: boolean,
-  orderWeight: number
-};
-
-type QueryPayload = {
-  payload: Object,
-  context: any
-};
-
-type JiraStatus = {
-  id: string,
-  name: string,
-  statusCategory:  {key: string},
-};
-
-type Result = {
-  results: Array<JiraStatus>,
-  nextCursor?: string
-};
-*/
-
 resolver.define(
   "saveStatusesFunctionKey",
   async ({ payload } /*: StatusPayload */) /*: Promise<Array<boolean>> */ => {
@@ -48,15 +15,15 @@ resolver.define(
       payload.statuses.map(
         async (status /*: Status */) /*: Promise<boolean> */ => {
           try {
-            await storage.entity("status_v2").set(status.id, {
-              name: status.name,
-              statusCategory: status.statusCategory,
-              used: status.used,
-              orderWeight: status.orderWeight,
+            await storage.entity("status_v2").set(status.key, {
+              name: status.value.name,
+              statusCategory: status.value.statusCategory,
+              used: status.value.used,
+              orderWeight: status.value.orderWeight,
             });
             return true; // Return true if the operation is successful
           } catch (error) {
-            console.error(`Error saving status ${status.id}:`, error);
+            console.error(`Error saving status ${status.key}:`, error);
             return false; // Return false if there's an error
           }
         },
@@ -69,9 +36,10 @@ resolver.define(
 
 resolver.define(
   "readStatusesFunctionKey",
-  async (
-    { payload, context } /*: QueryPayload */,
-  ) /*: Promise<Array<JiraStatus>> */ => {
+  async ({
+    payload,
+    context,
+  } /*: QueryPayload */) /*: Promise<Array<JiraStatus>> */ => {
     // const { used } = payload; // Example payload might include filtering by 'used'
     // let query = storage.entity("status_v2").query();
     // // Apply filter if 'usedFilter' is specified
@@ -98,4 +66,4 @@ resolver.define(
   },
 );
 
-export const handler /*: Function */ = resolver.getDefinitions();
+export const handler: Function = resolver.getDefinitions();

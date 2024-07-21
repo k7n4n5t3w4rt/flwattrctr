@@ -5,13 +5,6 @@
 import { requestJira, invoke } from "../../web_modules/@forge/bridge.js";
 
 /*::
-type Status = {
-  id: string,
-  name: string,
-  statusCategory: string,
-  used: boolean,
-  orderWeight: number,
-};
 */
 
 const saveStatusesToStore = async (
