@@ -38,9 +38,12 @@ import readStatusesFromStore from "./actions/readStatusesFromStore.js";
 
 const InProgress = (props /*: { count: number } */) /*: string */ => {
   // const [state, dispatch] /*: [Object, Function] */ = useContext(AppContext);
-  const [statuses, setStatuses] /*: [Array<Object>, Function] */ = useState([]);
+  const [statusEntities, setStatusEntities] /*: [
+    Array<StatusEntity>,
+    Function,
+  ] */ = useState([]);
   const [statusNames, setStatusNames] /*: [
-    Array<Object>,
+    Array<string>,
     Function,
   ] */ = useState([]);
   const [issues, setIssues] /*: [Array<Object>, Function] */ = useState([]);
@@ -48,11 +51,11 @@ const InProgress = (props /*: { count: number } */) /*: string */ => {
 
   // On the first render, fetch the statuses and issues
   useEffect(async () => {
-    const statuses /*: Array<Status> */ = await fetchWorkflowStatuses();
-    setStatuses(statuses);
-    await saveStatusesToStore(statuses);
-    const statusesFromStore /*: Array<Status> */ = await readStatusesFromStore();
-    const statusNames /*: Array<string> */ = statuses.map(
+    const statusEntities /*: Array<StatusEntity> */ = await fetchWorkflowStatuses();
+    setStatusEntities(statusEntities);
+    await saveStatusesToStore(statusEntities);
+    const statusesFromStore /*: Array<StatusEntity> */ = await readStatusesFromStore();
+    const statusNames /*: Array<string> */ = statusEntities.map(
       (status) => status.value.name,
     );
     setStatusNames(statusNames);

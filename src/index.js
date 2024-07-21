@@ -10,10 +10,12 @@ const resolver = new Resolver();
 
 resolver.define(
   "saveStatusesFunctionKey",
-  async ({ payload } /*: StatusPayload */) /*: Promise<Array<boolean>> */ => {
+  async ({
+    payload,
+  } /*: SaveStatusesPayload */) /*: Promise<Array<boolean>> */ => {
     const results = await Promise.all(
       payload.statuses.map(
-        async (status /*: Status */) /*: Promise<boolean> */ => {
+        async (status /*: StatusEntity */) /*: Promise<boolean> */ => {
           try {
             await storage.entity("status_v2").set(status.key, {
               name: status.value.name,
@@ -39,7 +41,10 @@ resolver.define(
   async ({
     payload,
     context,
-  } /*: QueryPayload */) /*: Promise<Array<JiraStatus>> */ => {
+  } /*: {
+    payload?: Object,
+    context?: Object,
+  } */) /*: Promise<Array<JiraStatus>> */ => {
     // const { used } = payload; // Example payload might include filtering by 'used'
     // let query = storage.entity("status_v2").query();
     // // Apply filter if 'usedFilter' is specified

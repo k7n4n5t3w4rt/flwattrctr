@@ -1,3 +1,7 @@
+//---------------------------------------------------------------------
+// TYPES
+//---------------------------------------------------------------------
+
 type JiraStatus = {
   id: string,
   name: string,
@@ -5,7 +9,7 @@ type JiraStatus = {
     name: string,
   },
 };
-type Status = {
+type StatusEntity = {
   key: string,
   value: {
     name: string,
@@ -15,42 +19,20 @@ type Status = {
   },
 };
 
-type StoredStatus = {
-  name: string,
-  statusCategory: string,
-  used: boolean,
-  orderWeight: number,
-};
-
-// type ReturnedData = {
-//   results: Array<Result>,
-// };
-
-type StatusPayload = {
+type SaveStatusesPayload = {
   payload: {
-    statuses: Array<Status>,
+    statuses: Array<StatusEntity>,
   },
-  context: any,
+  context?: any,
 };
 
-type QueryPayload = {
-  payload: Object,
-  context: any,
+type ReadStatusesFromStoreResults = {
+  results: Array<StatusEntity>,
 };
 
-type Results = {
-  results: Array<Result>,
-};
-
-type Result = {
-  key: string,
-  value: {
-    name: string,
-    statusCategory: string,
-    used: boolean,
-    orderWeight: number,
-  },
-};
+//---------------------------------------------------------------------
+// MODULES
+//---------------------------------------------------------------------
 
 declare module "finalhandler" {
   declare module.exports: any;

@@ -9,7 +9,7 @@ import {
   SortOrder,
 } from "../../web_modules/@forge/api.js";
 
-const fetchWorkflowStatuses = async () /*: Promise<Array<Status>> */ => {
+const fetchWorkflowStatuses = async () /*: Promise<Array<StatusEntity>> */ => {
   try {
     const response = await requestJira(`/rest/api/3/status`, {
       headers: {
@@ -22,7 +22,7 @@ const fetchWorkflowStatuses = async () /*: Promise<Array<Status>> */ => {
       `[Flw] fetchWorkflowStatuses - Response: ${response.status} ${response.statusText}`,
     );
     let orderWeight = 0;
-    return data.map((status /*: JiraStatus */) /*: Status */ => ({
+    return data.map((status /*: JiraStatus */) /*: StatusEntity */ => ({
       key: status.id,
       value: {
         name: status.name,
