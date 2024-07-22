@@ -1,6 +1,6 @@
 // @flow
-import { test, testPromise, should } from "../server/testy.js";
-import requestPromise from "../server/request_promise.js";
+import { test, testPromise, should } from "../testy.js";
+import requestPromise from "../testy_request_promise.js";
 import fs, { read } from "fs";
 
 // test("Cache | Writing to and reading from /index.html", () /*: any */ => {

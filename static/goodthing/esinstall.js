@@ -8,7 +8,6 @@ install(
     "immer",
     "preact",
     "preact/hooks",
-    "preact-render-to-string",
     "preact-router",
     "should/as-function.js",
     "simplestyle-js",

@@ -13,8 +13,8 @@ import produce from "../web_modules/immer.js";
 //---------------------------------------------------------------------
 // ACTIONS
 //---------------------------------------------------------------------
-import conf from "./actions/config.js";
-import stateStorage from "./actions/state_storage.js";
+import conf from "./config.js";
+import stateStorage from "./state_storage.js";
 
 // A context for the state global management
 // $FlowFixMe

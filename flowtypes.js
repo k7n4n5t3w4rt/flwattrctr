@@ -70,10 +70,6 @@ declare module "../web_modules/@forge/bridge.js" {
   declare module.exports: any;
 }
 
-declare module "../web_modules/preact-render-to-string.js" {
-  declare module.exports: any;
-}
-
 declare module "serve-static" {
   declare module.exports: any;
 }
