@@ -1,5 +1,5 @@
 // @flow
-import Stats from "./vendor/stats.module.js";
+import Stats from "../vendor/stats.module.js";
 export default () /*: Object */ => {
   const stats = new Stats();
   stats.setMode(0);

@@ -1,41 +1,38 @@
 // @flow
-import conf from "./config.js";
+//---------------------------------------------------------------------
+// PREACT
+//---------------------------------------------------------------------
 import { h, render, createContext } from "../web_modules/preact.js";
 import { useReducer } from "../web_modules/preact/hooks.js";
 import { html } from "../web_modules/htm/preact.js";
-import produce from "../web_modules/immer.js";
-import stateStorage from "./state_storage.js";
 import Router from "../web_modules/preact-router.js";
+//---------------------------------------------------------------------
+// 3RD PARTY
+//---------------------------------------------------------------------
+import produce from "../web_modules/immer.js";
+//---------------------------------------------------------------------
+// ACTIONS
+//---------------------------------------------------------------------
+import conf from "./actions/config.js";
+import stateStorage from "./actions/state_storage.js";
 
 // A context for the state global management
 // $FlowFixMe
 const AppContext = createContext([{}, () => {}]);
 
-const reducer = (state /*: Object */, action /*: Function */) =>
-  // https://www.pika.dev/npm/@vve/immer
+const reducer = (
+  state /*: { count: number } */,
+  action /*: { type: string, payload: { somevalue?: any } } */,
+) =>
+  // immer is for immutables ~ https://www.pika.dev/npm/@vve/immer
   produce(state, (draft) => {
-    let count /*: number */;
-    if (action.type === "add") {
-      count = state.count || action.payload;
-      count++;
-      draft.count = count;
-    }
-    if (action.type === "subtract") {
-      count = state.count || action.payload;
-      count--;
-      draft.count = count;
-    }
     if (action.type === "reset") {
-      draft.count = action.payload.count;
+      draft.count = action.payload.somevalue;
     }
   });
-
-/*::
-type Props = {
-	children: Array<Function>;
-};
-*/
-const AppProvider /*: Function */ = (props /*: Props */) => {
+const AppProvider /*: Function */ = (props /*: {
+  children: Array<Function>,
+} */) => {
   const [state, dispatch] = useReducer(reducer, {});
 
   // Browser only
@@ -45,8 +42,10 @@ const AppProvider /*: Function */ = (props /*: Props */) => {
       //
       // Load data from stateStorage
       // https://developer.mozilla.org/en-US/docs/Web/API/Storage
-      let sessionStateString /*: string | null | typeof undefined */ =
-        stateStorage.getItem("state", state.rememberme);
+      let sessionStateString /*:
+        | string
+        | null
+        | typeof undefined */ = stateStorage.getItem("state", state.rememberme);
       if (
         JSON.stringify(state) === JSON.stringify({}) &&
         (typeof sessionStateString === "undefined" ||
