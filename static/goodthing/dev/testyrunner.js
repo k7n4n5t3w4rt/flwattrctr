@@ -11,35 +11,24 @@ glob("**/*.testy.js", function (e, testies) {
         exec(`node ${testyFilePath}`, (e, stdout, stderr) => {
           if (e) {
             ++counter;
-            if (typeof stderr === "string") {
-              resolve([`${e.message}...${stderr}`]);
-            } else {
-              resolve([`${e.message}...${stderr.toString()}`]);
-            }
+            resolve([`${e.message}...${stderr}`]);
           }
-          let messageString = "";
-          if (typeof stderr === "string") {
-            messageString = stderr.trim();
-          } else {
-            messageString = stderr.toString().trim();
-          }
-          if (messageString !== "") {
-            const notOks /*: Array<string> */ =
-              messageString.split(/\r?\n/) || [];
-            const trimmedNotOks = notOks.map(
-              (currentElement /*: string */) /*: string */ =>
-                currentElement.trim(),
-            );
+          let messageString = stdout.trim();
+          if (stderr) {
+            const notOks /*: Array<string> */ = stderr.split(/\r?\n/) || [];
+            const trimmedNotOks = notOks.map((
+              currentElement /*: string */,
+            ) /*: string */ => currentElement.trim());
             // Get rid of the stupid NodeJS es module warning
-            const filtered = trimmedNotOks.filter(
-              (currentElement /*: string */) /*: boolean */ => {
-                return (
-                  currentElement.indexOf(
-                    "ExperimentalWarning: The ESM module loader is experimental",
-                  ) === -1 && currentElement !== ""
-                );
-              },
-            );
+            const filtered = trimmedNotOks.filter((
+              currentElement /*: string */,
+            ) /*: boolean */ => {
+              return (
+                currentElement.indexOf(
+                  "ExperimentalWarning: The ESM module loader is experimental",
+                ) === -1 && currentElement !== ""
+              );
+            });
             if (filtered.length) {
               messageString += " - " + filtered.join(" ~ ");
             }
