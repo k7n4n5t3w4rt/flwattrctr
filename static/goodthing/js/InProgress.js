@@ -72,9 +72,9 @@ const InProgress = (props /*: { count: number } */) /*: string */ => {
       <table>
         <thead>
           <tr>
-            <th>Key</th>
-            <th>Summary</th>
-            <th>Type</th>
+            <th data-cy="key-header">Key</th>
+            <th data-cy="summary-header">Summary</th>
+            <th data-cy="type-header">Type</th>
             ${statusNames.map((name) => html` <th>${name}</th> `)}
           </tr>
         </thead>

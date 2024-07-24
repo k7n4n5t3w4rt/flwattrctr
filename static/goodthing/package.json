@@ -43,7 +43,7 @@
     "start": "browser-sync start --server",
     "start:proxy": "browser-sync start --proxy 'localhost:4000' --files \".\"",
     "test": "npm run testy && npm run cypress:run",
-    "testy": "node --no-warnings server/testyrunner.js | faucet"
+    "testy": "node --no-warnings dev/testyrunner.js | faucet"
   },
   "type": "module"
 }
