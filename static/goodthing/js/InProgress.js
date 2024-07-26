@@ -11,14 +11,14 @@ import simpleStylesSeed from "./calculations/simpleStyles.js";
 // Set the seed for the styles
 setSeed(simpleStylesSeed("in-progress"));
 //---------------------------------------------------------------------
+// “REACT” - It's an alias for preact/compat
+//---------------------------------------------------------------------
+import React from "../web_modules/react.js";
+import ReactDom from "../web_modules/react-dom.js";
+import { useContext, useEffect, useState } from "../web_modules/react.js";
+//---------------------------------------------------------------------
 // PREACT
 //---------------------------------------------------------------------
-import { h, render } from "../web_modules/preact.js";
-import {
-  useContext,
-  useEffect,
-  useState,
-} from "../web_modules/preact/hooks.js";
 import { html } from "../web_modules/htm/preact.js";
 //---------------------------------------------------------------------
 // FORGE
@@ -28,6 +28,11 @@ import { view } from "../web_modules/@forge/bridge.js";
 // COMPONENTS
 //---------------------------------------------------------------------
 import { AppContext } from "./AppContext.js";
+// import Workflow from "./components/Workflow.js";
+//---------------------------------------------------------------------
+// HOOKS
+//---------------------------------------------------------------------
+import { useReactTable } from "../web_modules/@tanstack/react-table.js";
 //---------------------------------------------------------------------
 // ACTIONS
 //---------------------------------------------------------------------
@@ -49,12 +54,15 @@ const InProgress = (props /*: { count: number } */) /*: string */ => {
   const [issues, setIssues] /*: [Array<Object>, Function] */ = useState([]);
   const [context, setContext] /*: [Object, Function] */ = useState({});
 
+  useReactTable();
+
   // On the first render, fetch the statuses and issues
   useEffect(async () => {
     const statusEntities /*: Array<StatusEntity> */ = await fetchWorkflowStatuses();
     setStatusEntities(statusEntities);
-    await saveStatusesToStore(statusEntities);
-    const statusesFromStore /*: Array<StatusEntity> */ = await readStatusesFromStore();
+    // We'll use this later
+    // await saveStatusesToStore(statusEntities);
+    // const statusesFromStore /*: Array<StatusEntity> */ = await readStatusesFromStore();
     const statusNames /*: Array<string> */ = statusEntities.map(
       (status) => status.value.name,
     );

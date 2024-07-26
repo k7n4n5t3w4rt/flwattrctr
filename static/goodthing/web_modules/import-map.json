@@ -3,15 +3,16 @@
     "@forge/api": "./@forge/api.js",
     "@forge/bridge": "./@forge/bridge.js",
     "@forge/resolver": "./@forge/resolver.js",
+    "@tanstack/react-table": "./@tanstack/react-table.js",
     "htm": "./htm.js",
     "htm/preact": "./htm/preact.js",
     "immer": "./immer.js",
     "preact": "./preact.js",
-    "preact-render-to-string": "./preact-render-to-string.js",
     "preact-router": "./preact-router.js",
     "preact/hooks": "./preact/hooks.js",
+    "react": "./react.js",
+    "react-dom": "./react-dom.js",
     "should/as-function.js": "./should/as-function.js",
-    "simplestyle-js": "./simplestyle-js.js",
-    "three": "./three.js"
+    "simplestyle-js": "./simplestyle-js.js"
   }
 }

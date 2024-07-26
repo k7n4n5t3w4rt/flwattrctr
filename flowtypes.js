@@ -46,6 +46,10 @@ declare module "../web_modules/preact.js" {
   declare module.exports: any;
 }
 
+declare module "../../web_modules/preact.js" {
+  declare module.exports: any;
+}
+
 declare module "@forge/resolver" {
   declare module.exports: any;
 }
@@ -86,11 +90,35 @@ declare module "../web_modules/preact/hooks.js" {
   declare module.exports: any;
 }
 
+declare module "../../web_modules/preact/hooks.js" {
+  declare module.exports: any;
+}
+
 declare module "../web_modules/simplestyle-js.js" {
   declare module.exports: any;
 }
 
+declare module "../web_modules/@tanstack/react-table.js" {
+  declare module.exports: any;
+}
+
+declare module "../../web_modules/simplestyle-js.js" {
+  declare module.exports: any;
+}
+
+declare module "../web_modules/react.js" {
+  declare module.exports: any;
+}
+
+declare module "../web_modules/react-dom.js" {
+  declare module.exports: any;
+}
+
 declare module "../web_modules/htm/preact.js" {
+  declare module.exports: any;
+}
+
+declare module "../../web_modules/htm/preact.js" {
   declare module.exports: any;
 }
 

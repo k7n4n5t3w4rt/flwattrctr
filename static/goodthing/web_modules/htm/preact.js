@@ -1,5 +1,5 @@
 import { c as createCommonjsModule } from '../common/_commonjsHelpers-0597c316.js';
-import { p as preact_module } from '../common/preact.module-c2015350.js';
+import { a as preact_module } from '../common/preact.module-f481626b.js';
 import require$$0 from '../htm.js';
 
 var preact = createCommonjsModule(function (module, exports) {

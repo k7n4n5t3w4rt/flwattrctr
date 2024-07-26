@@ -11,10 +11,12 @@ install(
     "preact-router",
     "should/as-function.js",
     "simplestyle-js",
-    "three",
     "@forge/bridge",
     "@forge/api",
     "@forge/resolver",
+    "@tanstack/react-table",
+    "react",
+    "react-dom",
   ],
   {
     polyfillNode: false,

@@ -17,4 +17,4 @@ var preact_module = /*#__PURE__*/Object.freeze({
 	get options () { return n; }
 });
 
-export { D, H, I, L, M, p as a, d, h, l, m, n, preact_module as p, x };
+export { D, H, I, L, M, preact_module as a, d, h, l, m, n, p, x };

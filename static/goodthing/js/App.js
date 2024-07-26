@@ -1,19 +1,27 @@
 // @flow
-import { h } from "../web_modules/preact.js";
-import InProgress from "./InProgress.js";
+//---------------------------------------------------------------------
+// “REACT” - It's an alias for preact/compat
+//---------------------------------------------------------------------
+import React from "../web_modules/react.js";
+import ReactDom from "../web_modules/react-dom.js";
+import { useEffect, useState } from "../web_modules/react.js";
+//---------------------------------------------------------------------
+// PREACT
+//---------------------------------------------------------------------
 import Router from "../web_modules/preact-router.js";
 import { route } from "../web_modules/preact-router.js";
-import { useEffect, useState } from "../web_modules/preact/hooks.js";
 import { html } from "../web_modules/htm/preact.js";
+//---------------------------------------------------------------------
+// FORGE
+//---------------------------------------------------------------------
 import { view } from "../web_modules/@forge/bridge.js";
+//---------------------------------------------------------------------
+// COMPONENTS
+//---------------------------------------------------------------------
+import InProgress from "./InProgress.js";
 import { AppProvider } from "./AppContext.js";
 
-/*::
-type Props = {
-  url: string,
-};
-*/
-const App = (props /*: Props */) /*: string */ => {
+const App = (props /*: { url: string } */) /*: string */ => {
   useEffect(() => {
     view.createHistory().then((history) => {
       // The first time the history is set, we need to manually route

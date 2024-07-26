@@ -6,24 +6,24 @@ import {
   rawStyles,
   createStyles,
   setSeed,
-} from "../web_modules/simplestyle-js.js";
+} from "../../web_modules/simplestyle-js.js";
 import simpleStylesSeed from "../calculations/simpleStyles.js";
 // Set the seed for the styles
 setSeed(simpleStylesSeed("in-progress"));
 //---------------------------------------------------------------------
 // PREACT
 //---------------------------------------------------------------------
-import { h, render } from "../web_modules/preact.js";
+import { h, render } from "../../web_modules/preact.js";
 import {
   useContext,
   useEffect,
   useState,
-} from "../web_modules/preact/hooks.js";
-import { html } from "../web_modules/htm/preact.js";
+} from "../../web_modules/preact/hooks.js";
+import { html } from "../../web_modules/htm/preact.js";
 //---------------------------------------------------------------------
 // FORGE
 //---------------------------------------------------------------------
-import { view } from "../web_modules/@forge/bridge.js";
+import { view } from "../../web_modules/@forge/bridge.js";
 //---------------------------------------------------------------------
 // COMPONENTS
 //---------------------------------------------------------------------
@@ -50,9 +50,9 @@ const Workflow = (props /*: { count: number } */) /*: string */ => {
   // On the first render, fetch the statuses and issues
   useEffect(async () => {
     // const statusEntities /*: Array<StatusEntity> */ = await fetchWorkflowStatuses();
-    // setStatusEntities(statusEntities);
     const statusesFromStore /*: Array<StatusEntity> */ = await readStatusesFromStore();
-    dispatch(state, statusesFromStore);
+    setStatusEntities(statusesFromStore);
+    // dispatch(state, statusesFromStore);
     // await saveStatusesToStore(statusEntities);
   }, []);
 
